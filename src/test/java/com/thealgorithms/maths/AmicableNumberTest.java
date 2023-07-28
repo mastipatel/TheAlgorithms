@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class AmicableNumberTest {
-    private static final String INVALID_RANGE_EXCEPTION_MESSAGE = "Given range of values is invalid!";
-    private static final String INVALID_NUMBERS_EXCEPTION_MESSAGE = "Input numbers must be natural!";
+    private static final String INVALID_RANGE_MSG = "Given range of values is invalid!";
+    private static final String INVALID_NUMBERS_MSG = "Input numbers must be natural!";
 
     @Test
     public void testShouldThrowExceptionWhenInvalidRangeProvided() {
@@ -48,11 +48,11 @@ public class AmicableNumberTest {
 
     private static void checkInvalidRange(int from, int to) {
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> AmicableNumber.findAllInRange(from, to));
-        Assertions.assertEquals(exception.getMessage(), INVALID_RANGE_EXCEPTION_MESSAGE);
+        Assertions.assertEquals(exception.getMessage(), INVALID_RANGE_MSG);
     }
 
     private static void checkInvalidNumbers(int a, int b) {
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> AmicableNumber.isAmicableNumber(a, b));
-        Assertions.assertEquals(exception.getMessage(), INVALID_NUMBERS_EXCEPTION_MESSAGE);
+        Assertions.assertEquals(exception.getMessage(), INVALID_NUMBERS_MSG);
     }
 }
