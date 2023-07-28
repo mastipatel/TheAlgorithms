@@ -13,7 +13,6 @@ public class FloodFill {
      * @param x The x co-ordinate of which color is to be obtained
      * @param y The y co-ordinate of which color is to be obtained
      */
-
     public static int getPixel(int[][] image, int x, int y) {
         return image[x][y];
     }
@@ -36,25 +35,76 @@ public class FloodFill {
      * @param x The x co-ordinate at which color is to be filled
      * @param y The y co-ordinate at which color is to be filled
      * @param newColor The new color which to be filled in the image
+     */
+    public static void floodFill(int[][] image, int x, int y, int newColor) {
+        int oldColor = getPixel(image, x, y);
+        if (oldColor == newColor) {
+            // If new color is same as the old color, no need to fill
+            return;
+        }
+
+        floodFillHelper(image, x, y, newColor, oldColor);
+    }
+
+    /**
+     * Fill the 2D image with new color
+     *
+     * @param image The image to be filled
+     * @param x The x co-ordinate at which color is to be filled
+     * @param y The y co-ordinate at which color is to be filled
+     * @param newColor The new color which to be filled in the image
      * @param oldColor The old color which is to be replaced in the image
      */
     public static void floodFill(int[][] image, int x, int y, int newColor, int oldColor) {
-        if (x < 0 || x >= image.length) return;
-        if (y < 0 || y >= image[x].length) return;
-        if (getPixel(image, x, y) != oldColor) return;
+        if (x < 0 || x >= image.length || y < 0 || y >= image[x].length || getPixel(image, x, y) != oldColor) {
+            // Base case for recursion
+            return;
+        }
 
+        // Fill the current pixel with the new color
         putPixel(image, x, y, newColor);
 
-        /* Recursively check for horizontally & vertically adjacent coordinates */
+        // Recursively check for horizontally & vertically adjacent coordinates
         floodFill(image, x + 1, y, newColor, oldColor);
         floodFill(image, x - 1, y, newColor, oldColor);
         floodFill(image, x, y + 1, newColor, oldColor);
         floodFill(image, x, y - 1, newColor, oldColor);
 
-        /* Recursively check for diagonally adjacent coordinates  */
+        // Recursively check for diagonally adjacent coordinates
         floodFill(image, x + 1, y - 1, newColor, oldColor);
         floodFill(image, x - 1, y + 1, newColor, oldColor);
         floodFill(image, x + 1, y + 1, newColor, oldColor);
         floodFill(image, x - 1, y - 1, newColor, oldColor);
+    }
+
+    /**
+     * Helper method for the floodFill algorithm to handle recursion.
+     *
+     * @param image The image to be filled
+     * @param x The x co-ordinate at which color is to be filled
+     * @param y The y co-ordinate at which color is to be filled
+     * @param newColor The new color which to be filled in the image
+     * @param oldColor The old color which is to be replaced in the image
+     */
+    private static void floodFillHelper(int[][] image, int x, int y, int newColor, int oldColor) {
+        if (x < 0 || x >= image.length || y < 0 || y >= image[x].length || getPixel(image, x, y) != oldColor) {
+            // Base case for recursion
+            return;
+        }
+
+        // Fill the current pixel with the new color
+        putPixel(image, x, y, newColor);
+
+        // Recursively check for horizontally & vertically adjacent coordinates
+        floodFillHelper(image, x + 1, y, newColor, oldColor);
+        floodFillHelper(image, x - 1, y, newColor, oldColor);
+        floodFillHelper(image, x, y + 1, newColor, oldColor);
+        floodFillHelper(image, x, y - 1, newColor, oldColor);
+
+        // Recursively check for diagonally adjacent coordinates
+        floodFillHelper(image, x + 1, y - 1, newColor, oldColor);
+        floodFillHelper(image, x - 1, y + 1, newColor, oldColor);
+        floodFillHelper(image, x + 1, y + 1, newColor, oldColor);
+        floodFillHelper(image, x - 1, y - 1, newColor, oldColor);
     }
 }
