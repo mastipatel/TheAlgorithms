@@ -233,8 +233,7 @@ class LinkOperations {
         }
         if (index == 0) {
             insertHead(x, doublyLinkedList);
-        } else {
-            if (index == size) {
+        } else if (index == size) {
                 insertTail(x, doublyLinkedList);
             } else {
                 Link newLink = new Link(x);
@@ -243,12 +242,12 @@ class LinkOperations {
                     previousLink = previousLink.next;
                 }
                 // previousLink is the Link at index - 1 from start
-                previousLink.next.previous = newLink;
                 newLink.next = previousLink.next;
                 newLink.previous = previousLink;
+                previousLink.next.previous = newLink;
                 previousLink.next = newLink;
             }
-        }
+
         ++size;
     }
 
